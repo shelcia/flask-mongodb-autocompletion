@@ -1,0 +1,190 @@
+<html>
+  <head>
+    <title>Solera</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <style>
+    html {
+      font-family: "Poppins", sans-serif;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-size: 16px;
+      overflow-x: hidden;
+      background-color: #f9e547;
+    }
+    .headliner {
+      width: 100%;
+      position: absolute;
+
+      height: 75px;
+      align-items: center;
+
+      display: block;
+      box-shadow: 0px 6px 8px #00000029;
+      background-color: #f9e547;
+    }
+    .headliner p {
+      font-size: 25px;
+      text-align: center;
+    }
+
+    form {
+      top: 200px;
+      left: 500px;
+      position: relative;
+      vertical-align: baseline;
+    }
+    /*the container must be positioned relative:*/
+    .autocomplete {
+      position: relative;
+      display: inline-block;
+    }
+
+    input {
+      border: 1px solid transparent;
+      background-color: #f1f1f1;
+      padding: 10px;
+      font-size: 16px;
+    }
+    input[type="text"] {
+      background-color: #f1f1f1;
+      width: 100%;
+    }
+    input[type="submit"] {
+      background-color: #0049db;
+      color: #fff;
+      border-radius: 0 4px 4px 0;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: 2px 2px 6px #00000029;
+      cursor: pointer;
+      transition: box-shadow 0.5s ease-in;
+    }
+    .autocomplete-items {
+      position: absolute;
+      border: 1px solid #d4d4d4;
+      border-bottom: none;
+      border-top: none;
+      z-index: 99;
+      /*position the autocomplete items to be the same width as the container:*/
+      top: 100%;
+      left: 0;
+      right: 0;
+    }
+    .autocomplete-items div {
+      padding: 10px;
+      cursor: pointer;
+      background-color: #fff;
+      border-bottom: 1px solid #d4d4d4;
+    }
+    /*when hovering an item:*/
+    .autocomplete-items div:hover {
+      background-color: #e9e9e9;
+    }
+    /*when navigating through the items using the arrow keys:*/
+    .autocomplete-active {
+      background-color: #0049db !important;
+      color: #ffffff;
+    }
+  </style>
+  <body>
+    <div class="headliner">
+      <p>
+        Developed by Shelcia
+      </p>
+    </div>
+
+    <form autocomplete="off">
+      <div class="autocomplete" style="width:300px;">
+        <input
+          id="myInput"
+          type="text"
+          name="myCountry"
+          placeholder="Type Country name"
+        />
+      </div>
+      <input type="submit" value="find countries" />
+    </form>
+
+    <script>
+
+      function autocomplete(inp, arr) {
+
+        var currentFocus;
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+              if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                b = document.createElement("DIV");
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                b.addEventListener("click", function(e) {
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                    closeAllLists();
+                });
+                a.appendChild(b);
+              }
+            }
+        });
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+              currentFocus++;
+              addActive(x);
+            } else if (e.keyCode == 38) {
+              currentFocus--;
+              addActive(x);
+            } else if (e.keyCode == 13) {
+              e.preventDefault();
+              if (currentFocus > -1) {
+                if (x) x[currentFocus].click();
+              }
+            }
+        });
+        function addActive(x) {
+          if (!x) return false;
+          removeActive(x);
+          if (currentFocus >= x.length) currentFocus = 0;
+          if (currentFocus < 0) currentFocus = (x.length - 1);
+          x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+          for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+          }
+        }
+        function closeAllLists(elmnt) {
+          var x = document.getElementsByClassName("autocomplete-items");
+          for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+              x[i].parentNode.removeChild(x[i]);
+            }
+          }
+        }
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
+      }
+
+          // this is where your data is passed
+            var countries={{ data|safe }};
+            /*alert(countries);*/
+            autocomplete(document.getElementById("myInput"), countries);
+    </script>
+  </body>
+</html>

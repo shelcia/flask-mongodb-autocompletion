@@ -43,7 +43,7 @@ sudo chown -R `id -un` /System/Volumes/Data/data/db
 
 brew services run mongodb-community
 
-*Checking MongoDB - this will list all running services and  If MongoDB is running, mongodb-community will have a status set to started *
+*Checking MongoDB - this will list all running services and  If MongoDB is running, mongodb-community will have a status set to started*
 
 
 brew services list
@@ -96,17 +96,24 @@ CSV is the acronym for the comma-separated values file which allows saving the d
 
 mongoimport -d myDB -c myCollection --type CSV --file data.csv --headerline
 
-Note: 
+**Note:** 
 
 myDB is the database name
 
+
 myCollection is the collection name.
+
 
 –type CSV denotes that file type that is being imported is of type CSV.
 
+
 data.csv is the file name that we are importing.
 
+
 –headerline is the header of the CSV file, below which listed data is mentioned (here in this example it is ‘word ‘).
+
+
+
 
 
 *alter only the database name, collection name and file name you are importing*
@@ -123,7 +130,9 @@ use <your_db_name>
 
 db.myCollection.find().pretty() 
 
-Note: use your db name instead of db and collection anme of myCollection
+
+
+**Note:** use your db name instead of db and collection anme of myCollection
 
 
 **6. Frontend**
@@ -143,9 +152,18 @@ pip install virtualenv
 
 
 Execute the following commands (foldername can be your folder name)
+
+
+
 mkdir foldername
+
+
 cd foldername
+
+
 python3 -m venv env
+
+
 source env/bin/activate
 
 
@@ -161,7 +179,7 @@ this is where all your html files going to be there
 **7. Backend**
 
 
-*Come back to main folder and paste the main.py file *
+*Come back to main folder and paste the main.py file*
 
 
 additionally you need to install pymongo in your terminal so you can use mongodb with python
@@ -185,7 +203,7 @@ Open http://127.0.0.1:5000/ in your browser .
 
 **Note the project is still under development , might add few more features**
 
-*Happy Coding !! *
+*Happy Coding !!*
 
 
 

@@ -4,18 +4,21 @@ A autocomplete setup using flask and mongoDB
 
 If you are newbie i recommend you to go through the following steps.
 
-**1. MongoDB download and installation **
+**1. MongoDB download and installation**
 
 Here i will show you how to install using home brew on macOS
 
-# Installs Homebrew
+
 *Installs Homebrew*
+
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 *Taps Homebrew*
+
 brew tap mongodb/brew
 
 *Installing MongoDB using Homebrew*
+
 brew install mongodb-community
 
 **2. MongoDB download and installation **
@@ -26,7 +29,7 @@ sudo mkdir -p /System/Volumes/Data/data/db
 *Grant permission*
 sudo chown -R `id -un` /System/Volumes/Data/data/db
 
-**3. Checking MongoDB **
+**3. Checking MongoDB**
 
 *start MongoDB*
 brew services run mongodb-community
@@ -44,7 +47,7 @@ To rush through basics of MongoDB , go through this link https://www.freecodecam
 
 **4.Installling Flask**
 
-*if you have python already installed on your computer**
+*if you have python already installed on your computer*
 type out this command
 
 pip install Flask
@@ -79,10 +82,11 @@ Check if import was executed properly. Use the following commands.
 
 show databases
 use <your_db_name>
+
 db.myCollection.find().pretty() 
+
 Note: use your db name instead of db and collection anme of myCollection
 
-Meanwhile we will do some front end part
 
 **6. Frontend**
 
@@ -108,7 +112,7 @@ this is where all your html files going to be there
 
 *Paste the index.html file in your templates folder* 
 
-**7. Backend **
+**7. Backend**
 
 *Come back to main folder and paste the main.py file *
 
